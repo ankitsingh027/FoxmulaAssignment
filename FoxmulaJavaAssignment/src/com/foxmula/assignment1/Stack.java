@@ -1,0 +1,103 @@
+package com.foxmula.assignment1;
+
+import java.util.Scanner;
+
+public class Stack {
+	
+	private int stack[];
+    private int top;
+    int size;
+
+    Stack(int size){
+        stack = new int[size];
+        this.size = size;
+        top = -1;
+    }
+
+    private boolean checkFull(){
+        
+        return top == size-1;
+    }
+
+    boolean checkEmpty(){
+        return top == -1;
+    }
+
+    boolean push(int data){
+        if( this.checkFull() ){
+            return false;
+        }
+        stack[++top] = data;
+        return true;
+    }
+
+    int pop(){
+        if( this.checkEmpty() ){
+            System.out.println("Stack is Already Empty!");
+            return -1;
+        }
+        return stack[top--];
+    }
+
+    int capacity(){
+        return top+1;
+    }
+
+    void isSizeEqual(Stack stack2){
+        if(this.capacity() == stack2.capacity()){
+            System.out.println("The Number of Stack in Stack1 : "+stack2.capacity()+"\nThe Number of Stack in Stack2 : "+stack2.capacity());
+        }
+    }
+}
+
+
+class UserProgram{
+    public static void main(String[] args) {
+        Stack stack1 = new Stack(10);
+        Stack stack2 = new Stack(10);
+        Scanner input = new Scanner(System.in);
+        while(true){
+            System.out.println("Choose the stack to perform operations:\n\t1.stack1\n\t2.Stack2");
+            int ch = input.nextInt();
+            Stack stack;
+            if(ch==1){
+                stack = stack1;
+            }else if(ch==2){
+                stack=stack2;
+            }else{
+                System.out.println("Enter Valid Input");
+                continue;
+            }
+            System.out.println("Choose Operations to Perform\n\t1.Push\n\t2.Pop\n\t3.Is Stack Empty?\n\t4.Exit Program");
+            int option = input.nextInt();
+            switch(option){
+                case 1: System.out.println("Enter value : ");
+                        int data = input.nextInt();
+                        boolean status = stack.push(data);
+                        if(!status){
+                            System.out.println("Stack is full.");
+                        }
+                        stack1.isSizeEqual(stack2);
+                        break;
+                case 2: int x = stack.pop();
+                        if(x!=-1){
+                            System.out.println("Popped Element: "+x);
+                        }
+                        stack1.isSizeEqual(stack2);
+                        break;
+                case 3: boolean isEmpty = stack.checkEmpty();
+                        if(isEmpty){
+                            System.out.println("Stack is Empty");
+                        }else{  
+                            System.out.println("Not Empty");
+                        }
+                        break;
+                case 4: System.exit(1);
+                        break;
+                default:System.out.println("Enter Valid Option");
+                        break;   
+            }
+        } 
+    }
+
+}
